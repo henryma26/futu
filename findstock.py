@@ -30,17 +30,18 @@ def findstocksma(stocks):
     above250sma = []
     below250sma = []
     
-    for stock in stocks[0:10]:
+    for stock in stocks:
         df_stock = pd.read_pickle(f'{stock}.pkl')
         df_stock['250sma'] = df_stock['close'].rolling(window=250).mean()
         
         start_date = '2021-02-17 00:00:00'
-        start_close = df_stock.loc[df_stock['time_key'] == start_date, 'close'].values[0]
-        start_sma250 = df_stock.loc[df_stock['time_key'] == start_date, '250sma'].values[0]
-        if start_close > start_sma250:
-            above250sma.append(stock)
-        else:
-            below250sma.append(stock)
+        if start_date in df_stock['time_key'].values:
+            start_close = df_stock.loc[df_stock['time_key'] == start_date, 'close'].values[0]
+            start_sma250 = df_stock.loc[df_stock['time_key'] == start_date, '250sma'].values[0]
+            if start_close > start_sma250:
+                above250sma.append(stock)
+            else:
+                below250sma.append(stock)
         # print(start_close)
 
     return df_stock, above250sma, below250sma
