@@ -7,6 +7,7 @@ Created on Mon Feb 27 22:07:32 2023
 
 import os
 import pandas as pd
+import pickle
 
 with open('hkstocksfutu_20230224.txt', 'r') as f:
     stocklist = f.read().splitlines()
@@ -43,9 +44,14 @@ def findstocksma(stocks):
             else:
                 below250sma.append(stock)
         # print(start_close)
-
+        
+    with open('above250sma.pkl','wb') as handle:
+        pickle.dump(getstock[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('below250sma.pkl','wb') as handle:
+        pickle.dump(getstock[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
+        
     return df_stock, above250sma, below250sma
 
 data = findstock()
 
-bb = findstocksma(data)
+getstock = findstocksma(data)
