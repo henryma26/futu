@@ -15,3 +15,6 @@ used to find all HK stocks that match criteria
 
 # analyzedaily.py
 used to analyze daily price change comparing with HSI
+
+#below250sma.pkl & above250sma.pkl
+stored the HK stocks data between 20210217 to 20221031
