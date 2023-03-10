@@ -16,5 +16,11 @@ used to find all HK stocks that match criteria
 # analyzedaily.py
 used to analyze daily price change comparing with HSI
 
-#below250sma.pkl & above250sma.pkl
+# below250sma.pkl & above250sma.pkl
 stored the HK stocks data between 20210217 to 20221031
+
+# futuget1min_hist.py
+used to get 1min hk stocks data, default hk blue chips and HSI
+
+# hkgetsnap.py
+used to get real time hk stock market snapshot
