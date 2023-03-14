@@ -5,12 +5,6 @@ Created on Mon Mar 13 13:16:14 2023
 @author: henryma
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 10 14:42:19 2023
-This file is used to capture the snapshot of the market realtime
-"""
-
 import pandas as pd
 from futu import *
 import time
@@ -50,12 +44,19 @@ def get_snapshot(remain_hkstocks):
     return stocks_data
 
 def myfilter(final):
-    my_filter = []
-    for index, row in final.iterrows():
-        if row['last_price'] > row['prev_close_price'] and row['turnover'] > 200000 and row['close_price_5min'] != 0:
-            my_filter.append(row['code'])
+    # my_filter = []
+    # for index, row in final.iterrows():
+    #     if row['last_price'] > row['prev_close_price'] and row['turnover'] > 200000 and row['close_price_5min'] != 0:
+    #         my_filter.append(row['code'])
     
-    return my_filter
+    my_filter2 = final[(final['turnover'] > 200000) & (final['last_price']>=final['prev_close_price']*1.03)]
+    
+    for index, stock in my_filter2.iterrows():
+        if stock['update_time'] >= '2023-03-14 16:00:00':
+            print("yes")
+        else:
+            print("no")
+    return my_filter2
     
 def comparesma250(getstock):
     # getstock = getstock[300:]
@@ -100,6 +101,6 @@ remain_hkstocks = checkstatus()
 snapshot = get_snapshot(remain_hkstocks)
 final = pd.concat(snapshot)
 getstock = myfilter(final)
-getstock2 = comparesma250(getstock)
+# getstock2 = comparesma250(getstock)
 top_10_trate = final.nlargest(10, 'turnover_rate')
 top_10_am = final.nlargest(10, 'amplitude')
